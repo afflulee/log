@@ -125,7 +125,7 @@ export function renderChart(host, { entries, start, end, period, goal }) {
     'text-anchor': lx > width - 60 ? 'end' : 'middle',
     class: 'last-label',
   }, svg);
-  ll.textContent = `${last.w.toFixed(1)}`;
+  ll.textContent = `${last.w.toFixed(2)}`;
 
   // 호버: 크로스헤어 + 툴팁
   const cross = el('line', { y1: m.top, y2: m.top + ih, class: 'crosshair', visibility: 'hidden' }, svg);
@@ -152,7 +152,7 @@ export function renderChart(host, { entries, start, end, period, goal }) {
     cross.setAttribute('visibility', 'visible');
     focus.setAttribute('visibility', 'visible');
     const dt = new Date(best.t);
-    tip.innerHTML = `<b>${best.w.toFixed(1)} kg</b><span>${dt.getFullYear()}. ${fmtDay(dt)} (${WEEKDAYS[dt.getDay()]}) ${String(dt.getHours()).padStart(2, '0')}:${String(dt.getMinutes()).padStart(2, '0')}</span>`;
+    tip.innerHTML = `<b>${best.w.toFixed(2)} kg</b><span>${dt.getFullYear()}. ${fmtDay(dt)} (${WEEKDAYS[dt.getDay()]}) ${String(dt.getHours()).padStart(2, '0')}:${String(dt.getMinutes()).padStart(2, '0')}</span>`;
     tip.hidden = false;
     const scale = rect.width / width;
     const tipW = tip.offsetWidth;

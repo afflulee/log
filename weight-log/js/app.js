@@ -59,12 +59,12 @@ function render() {
   // 히어로
   const latest = all[all.length - 1];
   if (latest) {
-    $('#hero-weight').textContent = latest.weight.toFixed(1);
+    $('#hero-weight').textContent = latest.weight.toFixed(2);
     const prev = all[all.length - 2];
     const d = new Date(latest.date);
     let sub = `${d.getMonth() + 1}월 ${d.getDate()}일 ${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
     if (prev) sub += ` · 지난 기록 대비 ${signed(latest.weight - prev.weight)} kg`;
-    if (settings.goal) sub += ` · 목표까지 ${Math.abs(latest.weight - settings.goal).toFixed(1)} kg`;
+    if (settings.goal) sub += ` · 목표까지 ${Math.abs(latest.weight - settings.goal).toFixed(2)} kg`;
     $('#hero-sub').textContent = sub;
   } else {
     $('#hero-weight').textContent = '–';
@@ -96,9 +96,9 @@ function render() {
     const avg = ws.reduce((a, b) => a + b, 0) / ws.length;
     const change = ws[ws.length - 1] - ws[0];
     stats.innerHTML = [
-      ['평균', avg.toFixed(1)],
-      ['최저', Math.min(...ws).toFixed(1)],
-      ['최고', Math.max(...ws).toFixed(1)],
+      ['평균', avg.toFixed(2)],
+      ['최저', Math.min(...ws).toFixed(2)],
+      ['최고', Math.max(...ws).toFixed(2)],
       ['변화', signed(change)],
     ].map(([k, v]) => `<div><dt>${k}</dt><dd>${v}<small>kg</small></dd></div>`).join('');
   } else {
@@ -119,7 +119,7 @@ function render() {
       const li = document.createElement('li');
       li.innerHTML = `
         <div class="e-main">
-          <div class="e-weight">${e.weight.toFixed(1)}<small>kg</small></div>
+          <div class="e-weight">${e.weight.toFixed(2)}<small>kg</small></div>
           <div class="e-meta">${d.getFullYear()}. ${d.getMonth() + 1}. ${d.getDate()}. ${pad2(d.getHours())}:${pad2(d.getMinutes())}
             ${sourceBadge(e.source)}${e.note ? ` · ${escapeHtml(e.note)}` : ''}</div>
         </div>
@@ -131,8 +131,8 @@ function render() {
 }
 
 function signed(n) {
-  const v = Math.round(n * 10) / 10;
-  return (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(1);
+  const v = Math.round(n * 100) / 100;
+  return (v > 0 ? '+' : v < 0 ? '−' : '±') + Math.abs(v).toFixed(2);
 }
 function sourceBadge(s) {
   const map = { camera: '사진', album: '앨범', import: '가져옴' };
@@ -209,7 +209,7 @@ async function handlePhotos(files, source) {
     row.innerHTML = `
       <div class="thumb"></div>
       <div class="photo-fields">
-        <label>체중 (kg)<input type="number" step="0.1" min="10" max="400" inputmode="decimal" placeholder="읽는 중…" /></label>
+        <label>체중 (kg)<input type="number" step="0.01" min="10" max="400" inputmode="decimal" placeholder="읽는 중…" /></label>
         <label>날짜<input type="datetime-local" /></label>
         <div class="muted small status">인식 중…</div>
       </div>
@@ -237,7 +237,7 @@ async function handlePhotos(files, source) {
       item.row.querySelector('.thumb').style.backgroundImage = `url(${jpeg.dataUrl})`;
       const result = await recognizeWeight(jpeg, settings);
       if (result.weight != null) {
-        if (!item.wInput.value) item.wInput.value = result.weight.toFixed(1);
+        if (!item.wInput.value) item.wInput.value = result.weight.toFixed(2);
         status.textContent = `${result.method}로 인식함`;
       } else {
         status.textContent = '숫자를 찾지 못했어요 — 직접 입력해 주세요';

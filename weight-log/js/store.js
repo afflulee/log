@@ -32,7 +32,7 @@ function saveEntries(list) {
 
 export function addEntry({ date, weight, source = 'manual', note = '' }) {
   const list = getEntries();
-  const entry = { id: uid(), date, weight: round1(weight), source, note };
+  const entry = { id: uid(), date, weight: round2(weight), source, note };
   list.push(entry);
   saveEntries(list);
   return entry;
@@ -42,7 +42,7 @@ export function updateEntry(id, patch) {
   const list = getEntries();
   const i = list.findIndex((e) => e.id === id);
   if (i < 0) return;
-  list[i] = { ...list[i], ...patch, weight: round1(patch.weight ?? list[i].weight) };
+  list[i] = { ...list[i], ...patch, weight: round2(patch.weight ?? list[i].weight) };
   saveEntries(list);
 }
 
@@ -59,10 +59,10 @@ export function importEntries(items) {
     const w = Number(it.weight);
     if (!it.date || !Number.isFinite(w)) continue;
     const date = String(it.date).slice(0, 16);
-    const k = `${date}|${round1(w)}`;
+    const k = `${date}|${round2(w)}`;
     if (seen.has(k)) continue;
     seen.add(k);
-    list.push({ id: uid(), date, weight: round1(w), source: it.source || 'import', note: it.note || '' });
+    list.push({ id: uid(), date, weight: round2(w), source: it.source || 'import', note: it.note || '' });
     added++;
   }
   saveEntries(list);
@@ -77,6 +77,6 @@ export function saveSettings(patch) {
   writeJSON(SETTINGS_KEY, { ...getSettings(), ...patch });
 }
 
-export function round1(n) {
-  return Math.round(Number(n) * 10) / 10;
+export function round2(n) {
+  return Math.round(Number(n) * 100) / 100;
 }

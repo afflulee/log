@@ -82,7 +82,7 @@ async function recognizeWithClaude(dataUrl, { apiKey, model }) {
   let w = Number(json.weight);
   if (!Number.isFinite(w) || json.weight === null) return { weight: null, method: 'Claude', raw: text };
   if (json.unit === 'lb') w = w * 0.45359237;
-  return { weight: Math.round(w * 10) / 10, method: 'Claude', raw: text };
+  return { weight: Math.round(w * 100) / 100, method: 'Claude', raw: text };
 }
 
 let tesseractLoading;
@@ -141,7 +141,7 @@ function binarize(src, invert) {
 
 function extractNumbers(text) {
   const out = [];
-  for (const m of text.replace(/,/g, '.').matchAll(/\d{2,3}(?:\.\d)?/g)) {
+  for (const m of text.replace(/,/g, '.').matchAll(/\d{2,3}(?:\.\d{1,2})?/g)) {
     let n = parseFloat(m[0]);
     // 소수점이 인식 안 된 경우 (예: 723 → 72.3)
     if (!m[0].includes('.') && n > MAX_KG && n < MAX_KG * 10) n = n / 10;

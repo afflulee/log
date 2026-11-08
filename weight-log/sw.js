@@ -1,5 +1,5 @@
 // 오프라인 지원: 앱 파일 캐시 (파일을 바꾸면 VERSION을 올리세요)
-const VERSION = 'weight-log-v1';
+const VERSION = 'weight-log-v2';
 const ASSETS = [
   './',
   'index.html',

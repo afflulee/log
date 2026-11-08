@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Log</title>
+  <meta name="description" content="Log 시리즈 — 매일의 기록 앱 모음" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f4f1; --surface: #fcfcfb; --text: #0b0b0b; --text-2: #52514e;
+      --muted: #7a7975; --border: #e3e2dd; --accent: #2a78d6; --accent-soft: #e6effa;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #111110; --surface: #1a1a19; --text: #f0efec; --text-2: #c3c2b7;
+        --muted: #8f8e88; --border: #2c2c2a; --accent: #3987e5; --accent-soft: #1d2a3b;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+    main { max-width: 640px; margin: 0 auto; padding: calc(32px + env(safe-area-inset-top)) 16px 48px; }
+    h1 { font-size: 40px; letter-spacing: -0.03em; margin: 0; }
+    .lead { color: var(--text-2); margin: 4px 0 28px; }
+    ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    a.app {
+      display: flex; align-items: center; gap: 14px; padding: 16px; text-decoration: none; color: inherit;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    }
+    a.app:active { transform: scale(0.99); }
+    a.app img { width: 52px; height: 52px; border-radius: 12px; }
+    .name { font-weight: 700; font-size: 17px; }
+    .desc { color: var(--text-2); font-size: 14px; }
+    .no { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 6px; }
+    .soon { padding: 16px; border: 1px dashed var(--border); border-radius: 16px; color: var(--muted); font-size: 14px; text-align: center; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Log</h1>
+    <p class="lead">매일의 기록을 쌓아 보는 앱 시리즈</p>
+    <ul>
+      <li>
+        <a class="app" href="weight-log/">
+          <img src="weight-log/icons/icon.svg" alt="" />
+          <div>
+            <div class="name">Weight Log</div>
+            <div class="desc">몸무게 기록 · 주간/월간/년간 그래프 · 체중계 사진 인식</div>
+          </div>
+          <span class="no">#1</span>
+        </a>
+      </li>
+      <li class="soon">다음 Log 준비 중</li>
+    </ul>
+  </main>
+</body>
+</html>
